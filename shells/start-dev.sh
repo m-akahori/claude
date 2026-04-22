@@ -1,18 +1,17 @@
 #!/bin/bash
 
 # 開発環境を起動します
-# 使用例: ./start-dev.sh または ./start-dev.sh regrit
+# 使用例: ./start-dev.sh（idolで起動）または ./start-dev.sh regrit（regritで起動）
 
 set -e  # エラーが発生したら即座に終了
 
-# 0. リポジトリディレクトリへ移動（引数指定時のみ）
-if [ -n "$1" ]; then
-  cd "$1" || {
-    echo "エラー: ディレクトリ '$1' に移動できません。"
-    exit 1
-  }
-  echo "ディレクトリ: $(pwd)"
-fi
+# 0. リポジトリディレクトリへ移動（デフォルト: idol）
+TARGET="${1:-idol}"
+cd "$TARGET" || {
+  echo "エラー: ディレクトリ '$TARGET' に移動できません。"
+  exit 1
+}
+echo "ディレクトリ: $(pwd)"
 
 # 1. 現在のディレクトリを確認
 if [ ! -f docker-compose.yml ]; then

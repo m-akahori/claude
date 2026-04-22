@@ -1,18 +1,17 @@
 #!/bin/bash
 
 # 開発環境を停止します
-# 使用例: ./stop-dev.sh または ./stop-dev.sh regrit
+# 使用例: ./stop-dev.sh（idolを停止）または ./stop-dev.sh regrit（regritを停止）
 
 set -e  # エラーが発生したら即座に終了
 
-# 0. リポジトリディレクトリへ移動（引数指定時のみ）
-if [ -n "$1" ]; then
-  cd "$1" || {
-    echo "エラー: ディレクトリ '$1' に移動できません。"
-    exit 1
-  }
-  echo "ディレクトリ: $(pwd)"
-fi
+# 0. リポジトリディレクトリへ移動（デフォルト: idol）
+TARGET="${1:-idol}"
+cd "$TARGET" || {
+  echo "エラー: ディレクトリ '$TARGET' に移動できません。"
+  exit 1
+}
+echo "ディレクトリ: $(pwd)"
 
 # 1. 現在のディレクトリを確認
 if [ ! -f docker-compose.yml ]; then

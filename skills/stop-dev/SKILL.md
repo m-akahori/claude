@@ -1,14 +1,14 @@
 ---
 name: stop-dev
 description: Docker＋Viteの開発環境を停止する
-argument-hint: "[プロジェクトディレクトリ名]"
+argument-hint: "[プロジェクトディレクトリ名（省略時は idol）]"
 disable-model-invocation: true
 allowed-tools: Bash(docker *) Bash(pkill *) Bash(kill *) Bash(ps *)
 ---
 
 開発環境を停止します。
 
-使用例: `/stop-dev` または `/stop-dev regrit`
+使用例: `/stop-dev`（idolを停止）または `/stop-dev regrit`（regritを停止）
 
 トラブルシューティングは [troubleshooting.md](troubleshooting.md) を参照。
 
@@ -16,13 +16,11 @@ allowed-tools: Bash(docker *) Bash(pkill *) Bash(kill *) Bash(ps *)
 
 ## 0. リポジトリディレクトリへ移動（引数指定時のみ）
 
-引数が指定されている場合は、そのディレクトリに移動します。
+引数が指定されている場合は、そのディレクトリに移動します。省略した場合は `idol` をデフォルトとして使用します。
 
 ```bash
-cd {{arg}}
+cd {{arg:-idol}}
 ```
-
-引数が指定されていない場合は、現在のディレクトリで実行します。
 
 ## 1. 現在のディレクトリを確認
 
