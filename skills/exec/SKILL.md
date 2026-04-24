@@ -139,10 +139,12 @@ git checkout -b feature/{親チケットNo}
 
 ```bash
 git checkout feature/{親チケットNo}
-git checkout -b feature/{親チケットNo}/{子チケットNo}
+git checkout -b feature/{親チケットNo}_{子チケットNo}
 ```
 
-ブランチ名例: `feature/10/12`
+ブランチ名例: `feature/10_12`
+
+> **注意**: git の参照名前空間の制約により、`feature/12` と `feature/12/14` を同時に持つことはできない（前者がファイル、後者にはディレクトリが必要）。そのため子課題ブランチはスラッシュではなくアンダースコアで区切る。
 
 ---
 
@@ -240,12 +242,15 @@ git push origin {現在のブランチ名}
 | 条件 | マージ先 |
 |------|---------|
 | 親課題がない（最上位チケット） | `master` |
-| 親課題がある（子課題） | `feature/{親チケットNo}` |
+| 親課題がある（子課題） | `feature/{親チケットNo}`（リモートに存在しない場合は先にプッシュする） |
 
 ### 6-2. PR の作成
 
+git operations には `m-akahori` アカウントを使用するため、`gh auth switch` で切り替えてから実行し、完了後に元のアカウントに戻す。
+
 ```bash
 cd idol
+gh auth switch --user m-akahori
 gh pr create \
   --title "{チケットNo}: {チケットタイトル}" \
   --base {マージ先ブランチ} \
@@ -269,7 +274,13 @@ EOF
 )"
 ```
 
-PR 作成後、PR の URL を表示する。
+PR 作成後、元のアカウントに戻す：
+
+```bash
+gh auth switch --user akahori-mitsuru_kakaku
+```
+
+PR の URL を表示する。
 
 ---
 
