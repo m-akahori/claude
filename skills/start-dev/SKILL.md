@@ -1,14 +1,14 @@
 ---
 name: start-dev
 description: Docker＋Viteの開発環境を起動してブラウザを開く
-argument-hint: "[プロジェクトディレクトリ名]"
+argument-hint: "[プロジェクトディレクトリ名（省略時は idol）]"
 disable-model-invocation: true
 allowed-tools: Bash(docker *) Bash(npm *) Bash(open *) Bash(sleep *) Bash(source *) Bash(grep *) Bash(ls *)
 ---
 
 開発環境を起動します。
 
-使用例: `/start-dev` または `/start-dev regrit`
+使用例: `/start-dev`（idolで起動）または `/start-dev regrit`（regritで起動）
 
 トラブルシューティングは [troubleshooting.md](troubleshooting.md) を参照。
 
@@ -16,13 +16,11 @@ allowed-tools: Bash(docker *) Bash(npm *) Bash(open *) Bash(sleep *) Bash(source
 
 ## 0. リポジトリディレクトリへ移動（引数指定時のみ）
 
-引数が指定されている場合は、そのディレクトリに移動します。
+引数が指定されている場合は、そのディレクトリに移動します。省略した場合は `idol` をデフォルトとして使用します。
 
 ```bash
-cd {{arg}}
+cd {{arg:-idol}}
 ```
-
-引数が指定されていない場合は、現在のディレクトリで実行します。
 
 ## 1. 現在のディレクトリを確認
 
